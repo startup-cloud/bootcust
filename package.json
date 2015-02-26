@@ -1,6 +1,6 @@
 {
-  "name": "lesspoalim",
-  "description": "Bootstrap customization for Bank Hapoalim",
+  "name": "bootcust",
+  "description": "Bootstrap customization",
   "version": "0.0.1",
   "private": false,
   "engines": {
