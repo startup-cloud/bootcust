@@ -1,0 +1,7 @@
+{% extends 'layout.server.view.html' %}
+
+{% block content %}
+snippet {{current_menu}} {{current_page}}
+{% include "{{'snippets/'+current_page+'.'+current_menu+'.html'}}" %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{
+  "name": "lesspoalim",
+  "description": "Bootstrap customization for Bank Hapoalim",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt",
+    ".*.*",
+    "gruntfile.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "bootstrap": "~3"
+  }
+}
