@@ -1,7 +1,16 @@
 {% extends 'layout.server.view.html' %}
 
 {% block content %}
-snippet {{current_menu}} {{current_page}}
-{% include "{{'snippets/'+current_page+'.'+current_menu+'.html'}}" %}
 
+<div class="row" style="margin-top : 20px">
+    <div class="col-md-12">
+    {% include snippetId %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h4>Source:</h4>
+<pre><code class="html">{{ snippet_source}}</code></pre>
+    </div>
+</div>
 {% endblock %}

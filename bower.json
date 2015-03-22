@@ -12,6 +12,7 @@
     "package.json"
   ],
   "dependencies": {
-    "bootstrap": "~3"
+    "bootstrap": "~3",
+    "highlightjs": "~8.4.0"
   }
 }

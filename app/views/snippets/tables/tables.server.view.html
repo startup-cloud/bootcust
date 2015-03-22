@@ -1,0 +1,45 @@
+{% extends '../../layout.server.view.html' %}
+
+{% block content %}
+<div class="row text-left">
+    <div class="col-md-12">
+        <div class="title-branded">
+        <h3 style="display: inline">Tables</h3><a href="/search/table" class="btn btn-primary btn-xs pull-right">more...</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        {% include "./samples/table_default.html" %}
+    </div>
+    <div class="col-md-6">
+        {% include "./samples/table_hover.html" %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        {% include "./samples/table_condensed.html" %}
+    </div>
+    <div class="col-md-6">
+        {% include "./samples/table_with_colors.html" %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        {% include "./samples/table_with_paging.html" %}
+    </div>
+    <div class="col-md-6">
+        {% include "./samples/table_with_buttons.html" %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        {% include "./samples/table_with_sorting.html" %}
+    </div>
+    <div class="col-md-6">
+        {% include "./samples/table_with_muliselection.html" %}
+    </div>
+</div>
+
+{% endblock %}

@@ -58,8 +58,9 @@
 
 
 <!--Libraries JavaScript Files-->
-{% for jsFile in assets.jsLibrariesFiles %}
-<script type="text/javascript" src="{{jsFile}}"></script>
+{% for sample in samples %}
+{{sample}}
+{% include sample %}
 {% endfor %}
 
 </body>

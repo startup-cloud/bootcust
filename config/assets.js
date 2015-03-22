@@ -8,8 +8,7 @@ var glob = require('glob');
 var config = require('./config');
 
 /**
- * This project is library project, and thats the reason we need special logic for static assets
- * Instead of using css, all css are complied from less
+ *
  */
 module.exports = function (dir) {
     function cutPrePath(part, list) {

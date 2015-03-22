@@ -1,0 +1,45 @@
+{% extends '../../layout.server.view.html' %}
+
+{% block content %}
+<div class="row text-left">
+    <div class="col-md-12">
+        <div class="title-branded">
+            <h3 style="display: inline">Panels</h3><a href="/search/panel" class="btn btn-primary btn-xs pull-right">more...</a>
+        </div>
+    </div>
+</div>
+        
+<div class="row text-left">
+    <div class="col-md-4">
+        {% include "samples/panel_default.html" %}
+    </div>
+    <div class="col-md-4">
+        {% include "samples/panel_title_icon.html" %}
+    </div>
+    <div class="col-md-4">
+        {% include "samples/panel_default_with_footer.html" %}
+    </div>
+</div>
+<div class="row text-left">
+
+    <div class="col-md-4">
+        {% include "samples/panel_with_menu_in_title.html" %}
+    </div>
+    <div class="col-md-4">
+        {% include "samples/panel_with_button.html" %}
+    </div>
+    <div class="col-md-4">
+        {% include "samples/panel_with_input_form.html" %}
+    </div>
+</div>
+<div class="row text-left">
+
+    <div class="col-md-6">
+        {% include "samples/panel_with_table.html" %}
+    </div>
+
+    <div class="col-md-6">
+        {% include "samples/panel_with_table_border.html" %}
+    </div>
+</div>
+{% endblock %}

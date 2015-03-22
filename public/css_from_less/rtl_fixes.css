@@ -1,3 +1,19 @@
 .margin-left-4 {
   margin-left: 4px;
 }
+.div {
+  direction: ltr;
+}
+.table {
+  direction: ltr;
+}
+.input-group {
+  direction: ltr;
+}
+.checkbox {
+  direction: ltr;
+}
+.navbar-nav {
+  padding-left: 0px;
+  padding-right: 0px;
+}

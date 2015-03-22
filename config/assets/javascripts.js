@@ -5,6 +5,7 @@ module.exports = {
 
     dependencies: [
         {file: '/public/lib/jquery/dist/jquery.min.js'},
-        {file: '/public/lib/bootstrap/dist/js/bootstrap.min.js'}]
+        {file: '/public/lib/bootstrap/dist/js/bootstrap.min.js'},
+        {file: '/public/lib/highlightjs/highlight.pack.js'}]
 
 }

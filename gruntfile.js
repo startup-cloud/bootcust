@@ -1,6 +1,19 @@
 'use strict';
+var config = require('./config/config'),
+	assets = require('./config/assets'),
+	glob = require('glob'),
+	n18helper = require('./config/n18helper');
+
+//
+var fileAssets = assets(config.assets);
+n18helper.addLocales(fileAssets);
+
+
 
 module.exports = function(grunt) {
+
+
+
 
 	// Project Configuration
 	grunt.initConfig({
@@ -22,7 +35,10 @@ module.exports = function(grunt) {
 		},
 		cssjanus : {
 			theme: {
-				files: [{src: 'public/lib/bootstrap/dist/css/bootstrap.css', dest: 'public/lib/bootstrap/dist/css/bootstrap_hebrew.css'}]
+				options : {
+					generateExactDuplicates : true
+				},
+				files: fileAssets.all.locales['hebrew'].cssjanus
 			}
 		},
 		nodemon: {
@@ -56,5 +72,5 @@ module.exports = function(grunt) {
 	});
 
 	// Default task(s).
-	grunt.registerTask('default', ['less', 'concurrent:default']);
+	grunt.registerTask('default', ['less', 'cssjanus', 'concurrent:default']);
 };

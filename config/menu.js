@@ -3,11 +3,13 @@
  */
 module.exports = function () {
     var menu = { top : [
-        {id : 'pages', sub : ['login', 'profile', 'settings']},
-        {id : 'panels', sub : ['simple', 'buttons', 'input']},
-        {id : 'popups', sub : ['alert', 'confirm', 'input', 'content']},
-        {id : 'tables', sub : ['simple', 'advanced', 'tree', 'details']},
-        {id : 'forms', sub : ['profile', 'address', 'registration']},
+        {id : 'navs', icon : 'list'},
+        {id : 'panels', icon : 'picture'},
+        {id : 'popups', icon : 'comment'},
+        {id : 'tables', icon : 'th-list'},
+        {id : 'forms', icon : 'edit'},
+        {id : 'trees', icon : 'tree-conifer'},
+
     ]};
 
     return menu;

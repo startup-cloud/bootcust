@@ -8,6 +8,10 @@ module.exports = {
 	},
 	port: 3000,
 	publicStaticContentDir : './public',
+
 	assets : ['./assets/css.js', './assets/javascripts.js','./assets/less.js'],
-	templateEngine: 'swig'
+
+	templateEngine: 'swig',
+	templatesSuffix : 'server.view.html',
+	templatesDir : './app/views/'
 };

@@ -5,8 +5,12 @@
  */
 var config = require('./config'),
     assets = require('./assets'),
+    n18helper = require('./n18helper'),
     menu = require('./menu'),
+    lodash = require('lodash'),
+    _ = require('underscore'),
     fs = require('fs'),
+    glob = require('glob'),
     http = require('http'),
     express = require('express'),
     methodOverride = require('method-override'),
@@ -20,7 +24,7 @@ module.exports = function () {
     // Initialize express app
     console.log('Initialize express app');
     var app = express();
-
+    var menuData = menu();
 
     // Setting application local variables
     app.locals.title = config.app.title;
@@ -29,7 +33,19 @@ module.exports = function () {
 
     // Setting static assets: javascripts, css
     app.locals.assets = assets(config.assets);
+    app.locals.menu = menuData;
 
+    n18helper.addLocales(app.locals.assets);
+
+    var samples = {};
+
+    n18helper.readMetatags(glob.sync('snippets/**/*.html', {cwd: config.templatesDir}), samples, config.templatesDir);
+
+    var tagsTotals = n18helper.getTagsTotals(samples);
+    var tagsTotalAsArray = n18helper.getTagsTotalsArray(tagsTotals);
+
+    //console.log('tables:', tables);
+    //tables = ['snippets/tables/samples/table_with_paging.html'];
     // Passing the request url to environment locals
     app.use(function (req, res, next) {
         res.locals.url = req.protocol + '://' + req.headers.host + req.url;
@@ -40,11 +56,11 @@ module.exports = function () {
     app.set('showStackError', true);
 
     // Set swig as the template engine
-    app.engine('server.view.html', consolidate[config.templateEngine]);
+    app.engine(config.templatesSuffix, consolidate[config.templateEngine]);
 
     // Set views path and view engine
-    app.set('view engine', 'server.view.html');
-    app.set('views', './app/views');
+    app.set('view engine', config.templatesSuffix);
+    app.set('views', config.templatesDir);
 
     // Request body parsing middleware should be above methodOverride
     app.use(bodyParser.urlencoded({
@@ -62,23 +78,108 @@ module.exports = function () {
     // Setting the app router and static folder
     app.use(express.static(path.resolve(config.publicStaticContentDir)));
 
-    app.get('/test.html', function (req, res) {
-        res.render('test', {test: 'leo'});
+    app.get('/search/:tags?', function (req, res) {
+        var tagsParam = req.params['tags'];
+        if (tagsParam === undefined) {
+            tagsParam = 'table';
+        }
+        console.log('req.params:', tagsParam);
+
+        var tagsToFind = tagsParam.split('_');
+
+        var uniq = _.uniq(tagsToFind);
+        var samplesFound = n18helper.getSamplesByTags(samples, uniq);
+        while (samplesFound.length === 0 && uniq.length > 0) {
+            uniq.shift();
+            samplesFound = n18helper.getSamplesByTags(samples, uniq);
+        }
+
+        var selectedTags = _.reduce(uniq, function (result, current) {
+            result[current] = 'active';
+            return result;
+        }, {});
+
+        var removedTags = _.difference(tagsToFind, uniq);
+
+        console.log('selectedTags:', selectedTags);
+
+        tagsParam = uniq.join('_');
+
+        console.log('samplesFound:', samplesFound);
+
+        res.render('search', {
+            cookies: req.cookies,
+            tagsParam: tagsParam,
+            selectedTags: selectedTags,
+            selectedTagsArray : uniq,
+            removedTags : removedTags,
+            tags: tagsTotalAsArray,
+            samples: samplesFound
+        });
+
+    });
+
+    app.get('/changesearch/:tags', function (req, res) {
+        var tagsParam = req.params['tags'];
+        if (tagsParam === undefined) {
+            tagsParam = 'table';
+        }
+        console.log('req.params:', tagsParam);
+
+        var tagsToFind = tagsParam.split('_');
+
+        var counts = _.reduce(tagsToFind, function (result, tag) {
+            if (result[tag] === undefined) {
+                result[tag] = 0;
+            }
+            result[tag]++;
+
+            return result;
+        }, {});
+
+        console.log(counts);
+
+        var filtered = _.chain(counts).map(function (value, key) {
+            return {
+                k: key,
+                v: value
+            };
+        }).filter(function (o) {
+            return o.v === 1;
+        }).pluck('k').value();
+
+
+        var tags = filtered.join('_');
+
+        res.redirect('/search/' + tags);
+    });
+
+    app.get('/single/:snippetId?', function (req, res) {
+        var snippetId = req.params['snippetId'];
+
+        var sampleFullName = n18helper.findByFileName(snippetId, samples);
+
+        var realFileName = config.templatesDir + sampleFullName;
+
+        var fileContent = fs.readFileSync(realFileName, 'utf8');
+
+        res.render('snippet', { cookies: req.cookies, snippetId : sampleFullName, snippet_source : fileContent});
     });
 
     // support snippets
-    var menuData = menu();
+
     var context = {
         title: 'Hey', message: 'Hello there!',
         menu: menuData
     }
 
     app.get('/', function (req, res) {
+        context.cookies = req.cookies;
         res.render('index', context);
     });
 
     app.get('/setlanguage', function (req, res) {
-        console.log('here');
+        console.log('here setlanguage');
 
         if (req.query.language) {
             if (req.cookies.language !== 'hebrew') {
@@ -92,33 +193,25 @@ module.exports = function () {
         }
     });
 
+    // create routes for top menu
     for (var i = 0; i < menuData.top.length; i++) {
         var mm = menuData.top[i];
-        for (var j = 0; j < mm.sub.length; j++) {
-            var page = mm.sub[j];
 
-            var url = '/' + page + '_' + mm.id;
-            console.log('url', url);
+        var url = '/' + mm.id;
+        console.log('create route for url:', url);
 
-            //var file = 'snippets/'+mm.id+'/'+page + '_' + mm.id;
+        app.get(url, function (req, res) {
+            var file = 'snippets' + req.route.path + req.route.path;
+            //console.log(file);
+            res.render(file,
+                {
+                    title: 'snippets for ' + req.route.path,
+                    cookies: req.cookies,
+                    menu: menuData,
+                    current_menu: req.route.path
+                });
+        });
 
-            app.get(url, function (req, res) {
-                console.log('here --->',req.cookies);
-                //console.log('here --->, ', req.route.path);
-                var splitted = req.route.path.split('_');
-                //console.log(splitted);
-                var file = 'snippets/' + splitted[1] + req.route.path;
-                //console.log(file);
-                res.render(file,
-                    {
-                        title: 'snippets '+req.route.path,
-                        cookies : req.cookies,
-                        menu: menuData,
-                        current_menu: splitted[1],
-                        current_page: page
-                    });
-            });
-        }
     }
 
     // Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
