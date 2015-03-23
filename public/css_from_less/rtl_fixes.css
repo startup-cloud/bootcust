@@ -1,6 +1,9 @@
 .margin-left-4 {
   margin-left: 4px;
 }
+h4 {
+  direction: ltr;
+}
 .div {
   direction: ltr;
 }

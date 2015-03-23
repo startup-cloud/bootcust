@@ -4,9 +4,12 @@
 
 <div class="row" style="margin-top : 20px">
     <div class="col-md-12">
+        <div class="pull-left">
         {% for x in sample %}
-        <a href="/search/{{loop.key}}" class="btn btn-success btn-xs"><i  class="glyphicon glyphicon-search"></i> {{loop.key}}</a>
+        <a href="/search/{{loop.key}}" class="btn btn-primary btn-xs"><i  class="glyphicon glyphicon-search"></i> {{loop.key}}</a>
         {% endfor %}
+        </div>
+        <a target="_" href="{{gitFile}}" class="pull-right btn btn-info btn-xs"><i style="color: #000000" class="glyphicon glyphicon-share"></i> git</a>
     </div>
 </div>
 <div class="row" >

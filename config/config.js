@@ -13,5 +13,7 @@ module.exports = {
 
 	templateEngine: 'swig',
 	templatesSuffix : 'server.view.html',
-	templatesDir : './app/views/'
+	templatesDir : './app/views/',
+	gitAccount : 'https://github.com/raizman2012',
+	gitProject : '/bootcust/blob/master/'
 };

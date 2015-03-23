@@ -187,8 +187,10 @@ module.exports = function () {
 
         var fileContent = fs.readFileSync(realFileName, 'utf8');
 
-        console.log(samples[sampleFullName]);
+        var gitFileUrl = config.gitAccount + config.gitProject + realFileName;
+        console.log(gitFileUrl);
         res.render('snippet', {
+            gitFile : gitFileUrl,
             sample : samples[sampleFullName],
             cookies: req.cookies, snippetId : sampleFullName, snippet_source : fileContent});
     });
