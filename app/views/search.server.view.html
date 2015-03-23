@@ -1,0 +1,80 @@
+{% extends 'layout.server.view.html' %}
+
+{% block content %}
+<div class="row" style="margin-top: 40px">
+    <div class="col-md-3">
+        <div class="list-group">
+            {% for tag in tags %}
+
+            <a class="list-group-item list-group-item-condensed {{selectedTags[tag.tagName]}}"
+               href="/changesearch/{{tagsParam}}_{{tag.tagName}}">
+                <span class="pull-left">{{tag.tagName}}</span>
+
+                {% if !whatIfSelect[tag.tagName] %}
+                    <span class="badge badge-default pull-right">{{tag.count}}</span>
+
+                {% else %}
+                    {% if whatIfSelect[tag.tagName].totalIf > 0 %}
+                        <span class="badge badge-default pull-right">{{tag.count}}</span>
+                    {% else %}
+                        <span class="badge alert-warning pull-right">{{tag.count}}</span>
+                    {% endif %}
+                {% endif %}
+                <br/>
+            </a>
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+    <div class="col-md-9">
+        {% if removedTags.length > 0 %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <strong>Warning!</strong> Nothing found for:
+            {% for tag in removedTags %}
+            <span class="label label-warning">{{tag}}&nbsp;</span>
+            {% endfor %} and
+            {% for tag in selectedTagsArray %}
+            <span class="label label-info">{{tag}}&nbsp;</span>
+            {% endfor %}
+            , show <strong>{{samples.length}}</strong> results found for:
+            {% for tag in selectedTagsArray %}
+            <span class="label label-primary">{{tag}}&nbsp;</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <strong>Found {{samples.length}}</strong> search results for:
+            {% for tag in selectedTagsArray %}
+            <span class="label label-primary">{{tag}}&nbsp;</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% for sample in samples %}
+        <div class="metatags_category">
+            <div class="pull-left">
+
+                {% for tag in sample.tags %}
+                <span class="label label-default">{{tag}}</span>
+                {% endfor %}
+
+
+            </div>
+            <a class="btn btn-info btn-xs pull-right" href="/single/{{sample.fileName}}"><i class="glyphicon glyphicon-list-alt"></i> source</a>
+            <br/>
+        </div>
+
+        {% include sample.fullFilename %}
+        <br/>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

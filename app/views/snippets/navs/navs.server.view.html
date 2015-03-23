@@ -1,0 +1,61 @@
+{% extends '../../layout.server.view.html' %}
+
+{% block content %}
+<div class="row text-left">
+    <div class="col-md-12">
+        <div class="title-branded">
+            <h3 style="display: inline">Navigation</h3><a href="/search/navigation" class="btn btn-primary btn-xs pull-right">more...</a>
+        </div>
+    </div>
+</div>
+        
+<div class="row text-left">
+    <div class="col-md-6">
+        {% include "samples/tabs_menu.html" %}
+    </div>
+    <div class="col-md-6">
+        {% include "samples/tabs_simple.html" %}
+    </div>
+
+</div>
+
+<div class="row text-left">
+
+    <div class="col-md-12">
+        {% include "samples/navigation_bar.html" %}
+    </div>
+
+</div>
+<div class="row text-left">
+
+    <div class="col-md-12">
+        {% include "samples/navigation_bar_inversed.html" %}
+    </div>
+
+</div>
+<div class="row text-left">
+
+    <div class="col-md-4">
+        {% include "samples/links_list.html" %}
+    </div>
+    <div class="col-md-4">
+        {% include "samples/links_list_badges.html" %}
+    </div>
+    <div class="col-md-4">
+        {% include "samples/list_with_content.html" %}
+    </div>
+</div>
+<div class="row text-left">
+
+    <div class="col-md-4">
+        {% include "samples/button_groups.html" %}
+    </div>
+    <div class="col-md-4">
+        {% include "samples/buttons_dropdowns.html" %}
+    </div>
+    <div class="col-md-4">
+        {% include "samples/button_groups_segmented.html" %}
+    </div>
+</div>
+
+{% endblock %}

@@ -83,11 +83,13 @@ module.exports = function () {
         if (tagsParam === undefined) {
             tagsParam = 'table';
         }
-        console.log('req.params:', tagsParam);
+        //console.log('req.params:', tagsParam);
 
         var tagsToFind = tagsParam.split('_');
-
+        tagsToFind = _.compact(tagsToFind);
         var uniq = _.uniq(tagsToFind);
+
+        console.log(uniq);
         var samplesFound = n18helper.getSamplesByTags(samples, uniq);
         while (samplesFound.length === 0 && uniq.length > 0) {
             uniq.shift();
@@ -99,13 +101,31 @@ module.exports = function () {
             return result;
         }, {});
 
-        var removedTags = _.difference(tagsToFind, uniq);
 
-        console.log('selectedTags:', selectedTags);
+        console.log('1?', uniq);
+        var whatIf = _.reduce(tagsTotalAsArray, function(result, current) {
+            if (selectedTags[current.tagName] !== undefined) {
+                return result;
+            }
+
+            var uniqClone = uniq.slice(0);
+
+            uniqClone.push(current.tagName);
+
+            var samplesForOneMore = n18helper.getSamplesByTags(samples, uniqClone);
+
+            result[current.tagName] = { total : current.total, totalIf : samplesForOneMore.length};
+
+            return result;
+        }, {});
+
+        console.log('whatIf:', whatIf);
+
+        var removedTags = _.difference(tagsToFind, uniq);
 
         tagsParam = uniq.join('_');
 
-        console.log('samplesFound:', samplesFound);
+        //console.log('samplesFound:', samplesFound);
 
         res.render('search', {
             cookies: req.cookies,
@@ -114,6 +134,7 @@ module.exports = function () {
             selectedTagsArray : uniq,
             removedTags : removedTags,
             tags: tagsTotalAsArray,
+            whatIfSelect : whatIf,
             samples: samplesFound
         });
 
@@ -127,6 +148,9 @@ module.exports = function () {
         console.log('req.params:', tagsParam);
 
         var tagsToFind = tagsParam.split('_');
+
+        tagsToFind = _.compact(tagsToFind);
+
 
         var counts = _.reduce(tagsToFind, function (result, tag) {
             if (result[tag] === undefined) {
@@ -163,7 +187,10 @@ module.exports = function () {
 
         var fileContent = fs.readFileSync(realFileName, 'utf8');
 
-        res.render('snippet', { cookies: req.cookies, snippetId : sampleFullName, snippet_source : fileContent});
+        console.log(samples[sampleFullName]);
+        res.render('snippet', {
+            sample : samples[sampleFullName],
+            cookies: req.cookies, snippetId : sampleFullName, snippet_source : fileContent});
     });
 
     // support snippets

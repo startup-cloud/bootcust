@@ -1,0 +1,151 @@
+<div class="sample" categories="tree,table">
+
+    <h4 class="subtitle-branded">Table for structured data</h4>
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading"><span>Table tree structure</span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+
+                <th>Path</th>
+                <th>Full path</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr>
+                <td><i style="margin-left : 0px"
+                       class="glyphicon glyphicon-leaf glyphicon-folder-close"></i>
+                    Websphere
+                </td>
+
+                <td>[]</td>
+                <td>/Websphere</td>
+            </tr>
+
+            <tr>
+                <td><i style="margin-left : 20px"
+                       class="glyphicon glyphicon-leaf glyphicon-folder-close"></i>
+                    Logs
+                </td>
+
+                <td>[0]</td>
+                <td>/Websphere/Logs</td>
+            </tr>
+
+            <tr>
+                <td><i style="margin-left : 40px"
+                       class="glyphicon glyphicon-leaf glyphicon-folder-close"></i>
+                    Profiles
+                </td>
+
+                <td>[0,0]</td>
+                <td>/Websphere/Logs/Profiles</td>
+            </tr>
+
+            <tr>
+                <td><i style="margin-left : 40px"
+                       class="glyphicon glyphicon-leaf glyphicon-folder-close"></i>
+                    Applications
+                </td>
+                <td>[0,1]</td>
+                <td>/Websphere/Logs/Applications</td>
+            </tr>
+
+            <tr>
+                <td><i style="margin-left : 40px"
+                       class="glyphicon ng-class:node.leaf ? 'glyphicon-leaf' : node.expanded ? 'glyphicon-folder-open' : 'glyphicon-folder-close'; glyphicon-folder-open"></i>
+                    Users
+                </td>
+
+                <td>[0,2]</td>
+                <td>/Websphere/Logs/Users</td>
+            </tr>
+
+            <tr>
+                <td><i style="margin-left : 60px"
+                       class="glyphicon glyphicon-leaf"></i>
+                    Ana
+                </td>
+
+                <td>[0,2,0]</td>
+                <td>/Websphere/Logs/Users/Ana</td>
+            </tr>
+
+            <tr>
+                <td><i style="margin-left : 60px"
+                       class="glyphicon glyphicon-leaf"></i>
+                    Ben
+                </td>
+
+                <td>[0,2,1]</td>
+                <td>/Websphere/Logs/Users/Ben</td>
+            </tr>
+
+            <tr>
+                <td><i style="margin-left : 20px"
+                       class="glyphicon glyphicon-folder-open"></i>
+                    n1
+                </td>
+
+                <td>[1]</td>
+                <td>a1</td>
+            </tr>
+
+            <tr>
+                <td><i style="margin-left : 40px"
+                       class="glyphicon glyphicon-leaf glyphicon-folder-close"></i>
+                    n10
+                </td>
+
+                <td>[1,0]</td>
+                <td>a10</td>
+            </tr>
+
+            <tr>
+                <td><i style="margin-left : 40px"
+                       class="glyphicon glyphicon-leaf glyphicon-folder-close"></i>
+                    n11
+                </td>
+
+                <td>[1,1]</td>
+                <td>a11</td>
+            </tr>
+
+            <tr>
+                <td><i style="margin-left : 40px"
+                       class="glyphicon glyphicon-leaf glyphicon-folder-close"></i>
+                    n12
+                </td>
+
+                <td>[1,2]</td>
+                <td>a12</td>
+            </tr>
+
+
+            </tbody>
+
+        </table>
+        <div class="panel-footer">
+
+            <span>   </span>
+
+            <div class="">
+
+                <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-folder-close"></span>
+                    Collapse all
+                </button>
+                <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-folder-open"></span> Expand
+                    all
+
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

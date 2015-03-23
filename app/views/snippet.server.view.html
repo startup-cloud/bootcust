@@ -4,7 +4,15 @@
 
 <div class="row" style="margin-top : 20px">
     <div class="col-md-12">
-    {% include snippetId %}
+        {% for x in sample %}
+        <a href="/search/{{loop.key}}" class="btn btn-success btn-xs"><i  class="glyphicon glyphicon-search"></i> {{loop.key}}</a>
+        {% endfor %}
+    </div>
+</div>
+<div class="row" >
+
+    <div class="col-md-12">
+        {% include snippetId %}
     </div>
 </div>
 <div class="row">

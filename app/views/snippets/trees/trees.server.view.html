@@ -1,0 +1,25 @@
+{% extends '../../layout.server.view.html' %}
+
+{% block content %}
+
+<div class="row text-left">
+
+    <div class="col-md-12">
+        <div class="title-branded">
+            <h3 style="display: inline">Tables for complex data structures, trees and more</h3>
+            <a href="/search/tree" class="btn btn-primary btn-xs pull-right">more...</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <a href="/single/tree_table.html" class="btn btn-info btn-xs pull-right"><i class="glyphicon glyphicon-list-alt"></i> source</a>
+        {% include "samples/tree_table.html" %}
+    </div>
+    <div class="col-md-6">
+        <a href="/single/collapsable_table.html" class="btn btn-info btn-xs pull-right"><i class="glyphicon glyphicon-list-alt"></i> source</a>
+        {% include "samples/collapsable_table.html" %}
+    </div>
+</div>
+
+{% endblock %}

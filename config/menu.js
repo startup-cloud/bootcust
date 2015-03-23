@@ -5,7 +5,7 @@ module.exports = function () {
     var menu = { top : [
         {id : 'navs', icon : 'list'},
         {id : 'panels', icon : 'picture'},
-        {id : 'popups', icon : 'comment'},
+        {id : 'popups', icon : 'modal-window'},
         {id : 'tables', icon : 'th-list'},
         {id : 'forms', icon : 'edit'},
         {id : 'trees', icon : 'tree-conifer'},
