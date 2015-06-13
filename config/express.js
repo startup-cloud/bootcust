@@ -224,6 +224,11 @@ module.exports = function () {
         res.render('index', context);
     });
 
+    app.get('/pages/:pageId', function (req, res) {
+        var pageId = req.params['pageId'];
+        res.render(pageId, {});
+    });
+
     // RTL support
     app.get('/setlanguage', function (req, res) {
 
